@@ -1,2 +1,12 @@
 # papermind
-Analyses and compares research papers to allow you to stay up to date with new information
+Extracts, analyses and compares research papers to generate insights
+
+## Features
+- Summary and key insights
+- Methodology
+- Limitations
+- References
+
+## Tech Stack
+
+## How to Run
