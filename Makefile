@@ -6,7 +6,7 @@ format:
 	black *.py
 
 run:
-	python main.py
+	uv run python -m src.data.model
 
 lint: 
 	ruff check src/
