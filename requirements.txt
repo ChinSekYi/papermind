@@ -11,3 +11,7 @@ langchain-google-genai
 python-dotenv==1.2.2
 langchain-ollama==1.1.0
 ollama==0.6.1
+streamlit==1.56.0
+fastapi-cli==0.0.24
+fastapi-cloud-cli==0.17.0
+uvicorn==0.44.0
