@@ -14,6 +14,5 @@ def health_check():
 @app.get("/get_paper_info")
 def get_paper_info_endpoint():
     output = section_extractor("./data/processed/attention-is-all-you-need.md")
-    summaries = llm_process(output)
-    return summaries
+    return llm_process(output)
 

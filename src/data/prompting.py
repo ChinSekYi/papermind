@@ -9,8 +9,8 @@ def build_prompt(chunk: Chunk) -> str:
             "chunk_id": {chunk.chunk_id},
             "section_title": "{chunk.section_title}",
             "chunk_type": "abstract|introduction|method|experiment|result|limitation|conclusion|reference|other",
-            "main_idea": "short string or null",
-            "key_claims": ["short string"],
+            "chunk_summary": "string or null",
+            "key_claims": ["string"],
             "evidence_quote": "exact short quote or null",
             "entities": {{
                 "methods": ["name"],
@@ -26,13 +26,13 @@ def build_prompt(chunk: Chunk) -> str:
                 "result": "string or null",
                 "improvement": "string or null"
             }},
-            "limitation": "short string or null",
+            "limitation": "string or null",
             "confidence": 0.0
         }}
 
         Rules:
         - Use null for missing fields.
-        - Keep values short.
+        - Keep values complete.
         - Do not invent information.
         - Use an exact quote only when the chunk clearly states it.
 
@@ -71,7 +71,7 @@ def build_final_prompt(summaries) -> str:
             "limitations": ["string"],
             "when_to_use": ["string"],
             "when_not_to_use": ["string"],
-            "chunk_summaries": [{{...}}],
+            "final_summary": ["string"],
             "confidence": 0.0
         }}
 
@@ -79,7 +79,7 @@ def build_final_prompt(summaries) -> str:
         - Use only the chunk JSON below.
         - Do not invent missing details.
         - Remove duplicates.
-        - Keep values short.
+        - Keep values complete.
         - If something is unclear, use null or an empty list.
 
         Chunk JSON:

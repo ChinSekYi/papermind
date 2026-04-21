@@ -1,11 +1,23 @@
 # Papermind
+
+## Old direction
 Extracts, analyses and compares research papers to generate insights
 
-## Features
+Features
 - Summary and key insights
 - Methodology
 - Limitations
 - References
+
+## New direction
+Guides junior ML engineers through difficult research papers with plain-language explanations and prerequisite support.
+
+Features:
+- Section-by-section plain-language explanations
+- Prerequisite concept detection
+- “Read next” learning links
+- Paper understanding summary
+- Confidence flags for uncertain explanations
 
 ## Setup
 

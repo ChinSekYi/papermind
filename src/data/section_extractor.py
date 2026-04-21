@@ -37,7 +37,10 @@ def section_extractor(filepath) -> json:
                 output.append(Chunk(**chunk_data))
     return output
         
+import yaml
+with open('config/config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
 
 if __name__ == "__main__":
-    output = section_extractor("./data/processed/attention-is-all-you-need.md")
+    output = section_extractor(config["filepath"])
     print(output)
