@@ -21,3 +21,4 @@ pyyaml==6.0.2
 arxiv 
 bs4
 docling==2.91.0
+mineru[all]
