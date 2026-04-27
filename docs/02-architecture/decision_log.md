@@ -1,5 +1,5 @@
-# System Design
-
+# Design log
+To track major choices, alternatives considered, and why I picked what I picked.
 # Overview
 
 ## Components
@@ -11,11 +11,6 @@
 PDF -> Text -> Chunk -> LLM extract information -> LLM generates insights -> JSON formatting
 
 ## Key Decisions
-
-#### Parsing
-- Which parsing strategy to use?
-    - marker-pdf - very slow parsing time. >6min for "attention is all you need.pdf"
-    - PyMuPDF4LLM - much faster than marker-pdf. Preserves tables and formulas too.
 
 #### Chunking
 - What chunking strategy to use?

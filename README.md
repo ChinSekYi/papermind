@@ -19,6 +19,9 @@ Features:
 - Paper understanding summary
 - Confidence flags for uncertain explanations
 
+Assumptions:
+- Ignores images and equations (for now)
+
 ## Setup
 
 1. Install Ollama: https://ollama.ai

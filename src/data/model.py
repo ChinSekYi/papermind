@@ -46,6 +46,6 @@ with open('config/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
 if __name__ == "__main__":
-    output = section_extractor(config["filepath"])
+    output = section_extractor(config["paper_url"])
     final_output = llm_process(output)
     print(final_output)

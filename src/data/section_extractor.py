@@ -10,6 +10,7 @@ output: JSON file
 import json
 import re
 from .chunking import Chunk
+from .input_ingestion import paper_url_to_text
 
 def section_extractor(filepath) -> json:
     # TODO: clean section name, remove irrelevant details, ensure system reliability
@@ -17,8 +18,10 @@ def section_extractor(filepath) -> json:
 
     output = []
 
+    """
     with open(filepath, 'r') as f:
         content = f.read()
+    """
 
     sections = re.split(r'^#{2,}', content, flags=re.MULTILINE)
 
@@ -42,5 +45,6 @@ with open('config/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
 if __name__ == "__main__":
-    output = section_extractor(config["filepath"])
+    res = paper_url_to_text(config["paper_url"])
+    output = section_extractor(res)
     print(output)
