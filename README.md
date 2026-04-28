@@ -1,48 +1,48 @@
 # Papermind
 
-## Old direction
-Extracts, analyses and compares research papers to generate insights
-
-Features
-- Summary and key insights
-- Methodology
-- Limitations
-- References
-
-## New direction
+## Objective
 Guides junior ML engineers through difficult research papers with plain-language explanations and prerequisite support.
 
-Features:
+Expected Features:
 - Section-by-section plain-language explanations
 - Prerequisite concept detection
 - “Read next” learning links
 - Paper understanding summary
 - Confidence flags for uncertain explanations
 
-Assumptions:
-- Ignores images and equations (for now)
+---
 
-## Setup
+### Phase 1: Document parsing benchmark for RAG pipelines.
+Document parsers vary significantly in quality—especially when extracting tables, equations, and images. This phase compares parsing strategies to identify the best parser for production RAG systems.
 
-1. Install Ollama: https://ollama.ai
-2. Pull Gemma 4 model: 
-   ```bash
-   ollama pull gemma4
-   ```
-   ref: https://ollama.com/library/gemma4
-3. Make sure Ollama is running:
-   ```bash
-   ollama list
-   ```
-   If this command works, Ollama is already running. If it fails, start it with:
-   ```bash
-   ollama serve
-   ```
-4. Install Python dependencies:
-   ```bash
-   uv sync
-   source .venv/bin/activate
-   ```
+Benchmarking 3 parsing strategies on complex research papers:
+- **pymupdf4llm** — Fast, basic text extraction
+- **Docling** — Rich structure preservation (tables, images)
+- **MinerU** — High-quality OCR/VLM-based extraction
+
+Evaluation metrics: table/equation/image extraction accuracy, structure preservation, latency.
+Tracked in MLflow with manual quality scoring and artifact comparison.
+
+
+## Tech stack
+
+- Python 3.11+
+- PyTorch (used by some models)
+- `pymupdf4llm`, `docling`, `mineru` (parsers)
+- MLflow 
+- FastAPI (backend) and Streamlit (frontend)
+- `uv` / repo venv helper and GNU `make`
+- Optional: Ollama for local LLM hosting
+
+
+## Setup (minimal)
+
+- (Optional) If you use Ollama: https://ollama.ai
+- Install Python dependencies:
+```bash
+uv sync
+source .venv/bin/activate
+```
 
 ## How to Run
 ```bash
@@ -51,4 +51,9 @@ make api-server      # starts FastAPI backend on http://127.0.0.1:8000
 
 # terminal 2
 make app             # starts Streamlit frontend on http://127.0.0.1:8501
+```
+
+Quick inspect (open MLflow UI):
+```bash
+mlflow ui --backend-store-uri notebooks/mlruns
 ```

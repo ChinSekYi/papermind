@@ -30,3 +30,7 @@ While Docling is significantly slower than PyMuPDF, the downstream "cost" of hal
 ## Consequences
 - Need to implement an asynchronous queue (Redis/Celery) for multi-file uploads.
 - Vector search will need to handle larger chunks due to detailed Markdown tables.
+
+
+-----
+
