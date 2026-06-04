@@ -1,3 +1,6 @@
+# Personal notes
+docs/interview_prep.md
+
 # Parser benchmark - raw data and experiment outputs
 data/raw/*.pdf
 notebooks/experiments/outputs/*_result.md
