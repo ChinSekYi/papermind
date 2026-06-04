@@ -1,7 +1,7 @@
 # Papermind
 
 ## Objective
-Guides junior ML engineers through difficult research papers with plain-language explanations and prerequisite support.
+Papermind is a RAG pipeline optimized for dense academic papers, that helps junior engineers understand prerequisites of a paper they want to read — by extracting clean, complete context that generic tools miss.
 
 Expected Features:
 - Section-by-section plain-language explanations

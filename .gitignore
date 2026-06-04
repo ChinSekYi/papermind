@@ -1,3 +1,12 @@
+# Personal notes
+docs/interview_prep.md
+
+# Parser benchmark - raw data and experiment outputs
+data/raw/*.pdf
+notebooks/experiments/outputs/*_result.md
+notebooks/experiments/outputs/*_content_list*.json
+notebooks/experiments/outputs/mineru/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -8,6 +17,10 @@ __pycache__/
 /archive
 # C extensions
 *.so
+
+# Claude
+CLAUDE.md
+.claude/
 
 # Distribution / packaging
 .Python
