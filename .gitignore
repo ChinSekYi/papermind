@@ -6,6 +6,7 @@ data/raw/*.pdf
 notebooks/experiments/outputs/*_result.md
 notebooks/experiments/outputs/*_content_list*.json
 notebooks/experiments/outputs/mineru/
+docs/interview_prep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
