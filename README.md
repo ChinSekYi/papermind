@@ -1,19 +1,17 @@
 # Papermind
 
 ## Objective
-Papermind is a RAG pipeline optimized for dense academic papers, that helps junior engineers understand prerequisites of a paper they want to read — by extracting clean, complete context that generic tools miss.
+Papermind is a document extraction and synthesis pipeline optimized for dense academic papers, that helps junior engineers understand prerequisites of a paper they want to read — by extracting clean, complete context that generic tools miss.
 
 Expected Features:
-- Section-by-section plain-language explanations
 - Prerequisite concept detection
-- “Read next” learning links
 - Paper understanding summary
 - Confidence flags for uncertain explanations
 
 ---
 
 ### Phase 1: Document parsing benchmark for RAG pipelines.
-Document parsers vary significantly in quality—especially when extracting tables, equations, and images. This phase compares parsing strategies to identify the best parser for production RAG systems.
+Document parsers vary significantly in quality—especially when extracting tables, equations, and images. This phase compares parsing strategies to identify the best parser for production document extraction pipelines.
 
 Benchmarking 3 parsing strategies on complex research papers:
 - **pymupdf4llm** — Fast, basic text extraction

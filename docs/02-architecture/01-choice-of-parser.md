@@ -51,6 +51,25 @@ VLM/OCR-based extraction using a hybrid local pipeline (requires `torch`).
 | Docling | Minutes |
 | MinerU | Hours (~4hrs for a 35-page paper) |
 
+### Weighted Rubric Scores (rough, 0-10 per criterion)
+
+| Criteria (weight) | MinerU | Docling | pymupdf4llm |
+| :--- | :---: | :---: | :---: |
+| Structure Preservation (40%) | 9 | 7 | 2 |
+| Content Accuracy (30%) | 9 | 6 | 3 |
+| Downstream Utility (20%) | 8 | 8 | 3 |
+| Latency / Cost (10%) | 1 | 7 | 10 |
+| **Weighted Total** | **8.0** | **6.9** | **3.3** |
+
+Note: by the weighted rubric, MinerU scores highest overall (8.0 vs 6.9) — its
+quality advantage outweighs the 10% latency penalty in the formula. However,
+~4hrs/paper is a hard practical blocker for an interactive MVP that a 10% weight
+doesn't capture. **Docling was chosen as a deliberate override of the raw weighted
+score**, because latency is a binary go/no-go constraint for this use case, not a
+smoothly tradeable one. This is a good talking point: the rubric informs the
+decision but doesn't mechanically determine it — judgment about hard constraints
+matters too.
+
 ### Summary Scorecard
 | Criteria | MinerU | Docling | pymupdf4llm |
 | :--- | :---: | :---: | :---: |

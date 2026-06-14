@@ -2,11 +2,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-arxiv_id = "2604.18580v1"
-
 def paper_url_to_text(paper_url: str) -> str:
-    txt_url = f"https://arxiv.org/html/{arxiv_id}"
-    response = requests.get(txt_url, timeout=30)
+    response = requests.get(paper_url, timeout=30)
 
     response.raise_for_status()
 
@@ -30,5 +27,8 @@ def paper_url_to_text(paper_url: str) -> str:
 
 
 if __name__ == "__main__":
-    res = paper_url_to_text(arxiv_id)
+    import yaml
+    with open('config/config.yaml', 'r') as file:
+        config = yaml.safe_load(file)
+    res = paper_url_to_text(config["paper_url"])
     print(res)

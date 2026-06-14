@@ -1,50 +1,55 @@
 """
-input: .md file
-output: JSON file
-    [{"section": "method", 
-    "raw_title": "## Proposed Methods",
-    "chunks": [..,..,,,]],
-    ,..
-    }]
+input: markdown text (from paper_url_to_text)
+output: list[Chunk]
 """
-import json
 import re
 from .chunking import Chunk
 from .input_ingestion import paper_url_to_text
 
-def section_extractor(filepath) -> json:
+
+def _merge_paragraphs(paragraphs: list[str], max_chunk_size: int) -> list[str]:
+    merged = []
+    current = ""
+    for para in paragraphs:
+        if not current:
+            current = para
+        elif len(current) + 2 + len(para) <= max_chunk_size:
+            current = f"{current}\n\n{para}"
+        else:
+            merged.append(current)
+            current = para
+    if current:
+        merged.append(current)
+    return merged
+
+
+def section_extractor(text: str, max_chunk_size: int = 2000) -> list[Chunk]:
     # TODO: clean section name, remove irrelevant details, ensure system reliability
-    # limitations: doesnt differentiate between ## and ### sections. 
+    # limitations: doesnt differentiate between ## and ### sections.
 
     output = []
 
-    """
-    with open(filepath, 'r') as f:
-        content = f.read()
-    """
+    # Split on markdown headings, keeping the heading text via capture group
+    parts = re.split(r'^##\s*(.+)$', text, flags=re.MULTILINE)
 
-    sections = re.split(r'^#{2,}', content, flags=re.MULTILINE)
+    # parts[0] is any text before the first heading (discarded)
+    # remaining parts come in (title, content) pairs
+    for title, content in zip(parts[1::2], parts[2::2]):
+        title = title.strip()
+        paragraphs = [c.strip() for c in re.split(r'\n\s*\n', content.strip()) if c.strip()]
+        chunks = _merge_paragraphs(paragraphs, max_chunk_size)
+        for i, chunk in enumerate(chunks):
+            chunk_data = {"section_title": title, "chunk_id": i, "content": chunk}
+            output.append(Chunk(**chunk_data))
 
-    # for each section, save the title and content. 
-    for section in sections:
-        title_content = re.split(r'\*\*(.*?)\*\*', section.strip(), maxsplit=1)
-        title_content = title_content[1:] if len(title_content) > 2 else title_content
-
-        # Happy path
-        # TODO: what if section dont have matching pattern?
-        if len(title_content) == 2: 
-            content = title_content[1]
-            chunks = re.split(r'\n\s*\n', content.strip())
-            for i, chunk in enumerate(chunks):
-                chunk_data = {"section_title": title_content[0], "chunk_id":i, "content":chunk}
-                output.append(Chunk(**chunk_data))
     return output
-        
-import yaml
-with open('config/config.yaml', 'r') as file:
-    config = yaml.safe_load(file)
+
 
 if __name__ == "__main__":
-    res = paper_url_to_text(config["paper_url"])
-    output = section_extractor(res)
+    import yaml
+    with open('config/config.yaml', 'r') as file:
+        config = yaml.safe_load(file)
+
+    text = paper_url_to_text(config["paper_url"])
+    output = section_extractor(text)
     print(output)

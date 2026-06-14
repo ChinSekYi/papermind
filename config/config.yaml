@@ -1,3 +1,4 @@
 
-#filepath: ./data/processed/attention-is-all-you-need.md
 paper_url: https://arxiv.org/html/2604.18580v1
+demo_input_path: data/processed/attention-is-all-you-need.md
+demo_output_path: data/final_output/attention-is-all-you-need.json

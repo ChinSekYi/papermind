@@ -29,7 +29,16 @@ PDF -> Text -> Chunk -> LLM extract information -> LLM generates insights -> JSO
 
 
 - What prompting strategy to use?
-- Why JSON output? 
+- Why JSON output?
+
+#### Chunk size merging (feat/phase2)
+- Problem found: `section_extractor` originally made one chunk per paragraph (split on blank lines). On a real paper this produced 2224 chunks — way too many LLM calls in `llm_process` (one per chunk), too slow/costly.
+- Fix: added `_merge_paragraphs`, which greedily concatenates consecutive paragraphs within a section up to a `max_chunk_size` char budget (default 2000 chars), starting a new chunk when the budget would be exceeded.
+- Result: same paper now produces 184 chunks instead of 2224.
+- Mistakes/notes:
+    - Chose a simple char-length budget instead of token counting — good enough for now, but token-based budgeting would be more accurate for LLM context limits.
+    - Still paragraph-granularity within a chunk — a single huge paragraph longer than `max_chunk_size` is not split further (acceptable edge case for now, but worth a TODO).
+    - Still no `###` subsection awareness — merging happens within `##` sections only, so a section with many subsections gets all subsections' paragraphs merged together without subsection boundaries preserved.
 
 
 

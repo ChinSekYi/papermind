@@ -35,6 +35,9 @@ def build_prompt(chunk: Chunk) -> str:
         - Keep values complete.
         - Do not invent information.
         - Use an exact quote only when the chunk clearly states it.
+        - confidence: a float 0-1 indicating how directly chunk_summary and
+          key_claims are stated in the text vs. inferred. 1.0 = explicitly
+          stated, lower = paraphrased or uncertain.
 
         TEXT:
         {chunk.content}
@@ -43,7 +46,7 @@ def build_prompt(chunk: Chunk) -> str:
 def chain_prompts(prev_text, new_text) -> str:
     if not prev_text:
         return f""" ===CHUNK_START=== \n\n
-        {prev_text} \n\n
+        {new_text} \n\n
          ===CHUNK_END===\n\n """
     else:
         return f"""{prev_text} \n\n
@@ -68,6 +71,7 @@ def build_final_prompt(summaries) -> str:
             "dataset": ["string"],
             "metrics": ["string"],
             "key_contributions": ["string"],
+            "prerequisites": ["string"],
             "limitations": ["string"],
             "when_to_use": ["string"],
             "when_not_to_use": ["string"],
@@ -81,6 +85,11 @@ def build_final_prompt(summaries) -> str:
         - Remove duplicates.
         - Keep values complete.
         - If something is unclear, use null or an empty list.
+        - confidence: a float 0-1, the average of the confidence values across
+          the chunk JSONs below, indicating overall confidence in this summary.
+        - prerequisites: list background concepts, techniques, or prior papers a
+          reader would need to understand before this paper, based only on what
+          is referenced or assumed in the chunk JSON.
 
         Chunk JSON:
         {summaries}

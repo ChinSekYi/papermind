@@ -1,0 +1,32 @@
+{
+  "title": "Attention Is All You Need",
+  "authors": [],
+  "year": null,
+  "problem": "machine translation",
+  "method": "Transformer architecture based on attention mechanisms, replacing recurrent and convolutional networks",
+  "dataset": [
+    "WMT 2014 English-to-German",
+    "WMT 2014 English-to-French"
+  ],
+  "metrics": [
+    "BLEU"
+  ],
+  "key_contributions": [
+    "The Transformer is a new architecture based solely on attention mechanisms, without recurrence or convolutions.",
+    "Experiments show the model is superior in quality, more parallelizable, and requires less training time.",
+    "The model achieves 28.4 BLEU on English-to-German and 41.0 BLEU on English-to-French tasks, surpassing prior results."
+  ],
+  "prerequisites": [
+    "Recurrent neural networks (RNNs)",
+    "long short-term memory (LSTM)",
+    "gated recurrent neural networks",
+    "encoder-decoder architectures"
+  ],
+  "limitations": [],
+  "when_to_use": [],
+  "when_not_to_use": [],
+  "final_summary": [
+    "The paper introduces the Transformer, a new architecture based solely on attention mechanisms, replacing recurrent/convolutional networks. It demonstrates superior performance in machine translation tasks with faster training and better BLEU scores."
+  ],
+  "confidence": 0.5
+}

@@ -1,5 +1,6 @@
 from .prompting import build_prompt, build_final_prompt, chain_prompts
 from .section_extractor import section_extractor
+from .input_ingestion import paper_url_to_text
 
 from pydantic import BaseModel, Field
 from langchain_ollama import ChatOllama
@@ -13,6 +14,7 @@ class FinalOutput(BaseModel):
     dataset: list[str] = Field(default_factory=list)
     metrics: list[str] = Field(default_factory=list)
     key_contributions: list[str] = Field(default_factory=list)
+    prerequisites: list[str] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
     when_to_use: list[str] = Field(default_factory=list)
     when_not_to_use: list[str] = Field(default_factory=list)
@@ -21,7 +23,7 @@ class FinalOutput(BaseModel):
 
 
 llm = ChatOllama(
-        model="gemma4",
+        model="qwen3:8b",
         temperature=0.1
     )
 
@@ -46,6 +48,7 @@ with open('config/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
 if __name__ == "__main__":
-    output = section_extractor(config["paper_url"])
+    text = paper_url_to_text(config["paper_url"])
+    output = section_extractor(text)
     final_output = llm_process(output)
     print(final_output)
